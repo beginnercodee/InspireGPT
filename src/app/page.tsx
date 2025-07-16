@@ -4,6 +4,10 @@
   import { Input } from "@/components/ui/input";
   import { Button } from "@/components/ui/button";
   import { Card, CardContent } from "@/components/ui/card";
+  import { Copy } from "lucide-react";
+  import { motion } from "framer-motion";
+
+
 
   export default function Home() {
     const [input, setInput] = useState("");
@@ -58,18 +62,21 @@
     <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
       <CardContent className="p-4 text-center text-lg font-semibold">{quote}</CardContent>
     </Card>
+    <motion.div whileHover={{ scale: 1.05 }}>
     <Button
-      onClick={() => {
-        navigator.clipboard.writeText(quote);
-        import("sonner").then(({ toast }) =>
-          toast.success("Quote copied to clipboard! 🚀")
-        );
-      }}
-      className="w-full"
-      variant="outline"
-    >
-      Copy Quote
-    </Button>
+  onClick={() => {
+    navigator.clipboard.writeText(quote);
+    import("sonner").then(({ toast }) =>
+      toast.success("Quote copied to clipboard! 🚀")
+    );
+  }}
+  className="w-full flex gap-2 justify-center"
+  variant="outline"
+>
+  <Copy size={18} />
+  Copy Quote
+</Button>
+</motion.div>
   </>
 )}
 
