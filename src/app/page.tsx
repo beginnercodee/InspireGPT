@@ -29,15 +29,16 @@
     };
 
     return (
-      <main className="max-w-lg mx-auto mt-20 p-4">
+      <main className="max-w-lg mx-auto mt-10 p-4 sm:mt-20 space-y-4">
+
         <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
         <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Enter topic (e.g., success)"
-          className="mb-4"
+          className="mb-4 text-sm sm:text-base"
         />
-        <div className="flex gap-2 mb-4">
+        <div className="flex flex-wrap gap-2 mb-4">
           {["Motivational", "Calm", "Funny", "Sad"].map((m) => (
             <Button key={m} variant={mood === m ? "default" : "outline"} onClick={() => setMood(m)}>
               {m}
@@ -59,7 +60,7 @@
 
   {quote && !loading && (
   <>
-    <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+    <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-base sm:text-lg">
       <CardContent className="p-4 text-center text-lg font-semibold">{quote}</CardContent>
     </Card>
     <motion.div whileHover={{ scale: 1.05 }}>
