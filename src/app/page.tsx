@@ -54,10 +54,25 @@
   )}
 
   {quote && !loading && (
+  <>
     <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
       <CardContent className="p-4 text-center text-lg font-semibold">{quote}</CardContent>
     </Card>
-  )}
+    <Button
+      onClick={() => {
+        navigator.clipboard.writeText(quote);
+        import("sonner").then(({ toast }) =>
+          toast.success("Quote copied to clipboard! 🚀")
+        );
+      }}
+      className="w-full"
+      variant="outline"
+    >
+      Copy Quote
+    </Button>
+  </>
+)}
+
 </section>
 
       </main>
