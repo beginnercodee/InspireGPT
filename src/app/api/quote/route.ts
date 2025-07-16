@@ -7,7 +7,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Topic or Mood required" }, { status: 400 });
   }
 
-  const prompt = `Give me a short, unique motivational quote about ${topic || mood}. Keep it under 30 words.`;
+  const prompt = topic || mood
+  ? `You are an inspiring quote generator. Write a short, original quote about "${topic || mood}". Keep it under 25 words. Avoid clichés.`
+  : `You are an inspiring quote generator. Give me a random short, fresh, uplifting quote under 25 words. No clichés.`;
+
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -19,7 +22,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         model: "gpt-4o",
         messages: [{ role: "user", content: prompt }],
-        temperature: 0.8,
+        temperature: 0.9,
       }),
     });
 
