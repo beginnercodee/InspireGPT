@@ -41,13 +41,25 @@
           ))}
         </div>
         <Button onClick={getQuote} disabled={loading} className="w-full mb-4">
-          {loading ? "Generating..." : "Get Quote"}
-        </Button>
-        {quote && (
-          <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
-            <CardContent className="p-4 text-center text-lg font-semibold">{quote}</CardContent>
-          </Card>
-        )}
+  {loading ? "Generating..." : "Get Quote"}
+</Button>
+
+<section className="space-y-4">
+  {!loading && !quote && (
+    <p className="text-muted-foreground text-center">Enter a topic or mood and get inspired! ✨</p>
+  )}
+
+  {loading && (
+    <Card className="animate-pulse bg-gradient-to-r from-gray-700 via-gray-900 to-black h-24 rounded-xl" />
+  )}
+
+  {quote && !loading && (
+    <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white">
+      <CardContent className="p-4 text-center text-lg font-semibold">{quote}</CardContent>
+    </Card>
+  )}
+</section>
+
       </main>
     );
   }
