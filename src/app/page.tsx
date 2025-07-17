@@ -14,13 +14,13 @@ export default function Home() {
   const [quote, setQuote] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // ✅ Daily Motivation Mode Effect
+  // ✅ Daily Mode with proper fallback
   useEffect(() => {
     const saved = localStorage.getItem("daily_quote");
     const savedTime = localStorage.getItem("daily_quote_time");
 
     if (saved && savedTime) {
-      const now = new Date().getTime();
+      const now = Date.now();
       const then = parseInt(savedTime, 10);
       const hoursPassed = (now - then) / (1000 * 60 * 60);
 
@@ -29,22 +29,31 @@ export default function Home() {
         return;
       }
     }
+
     fetchDailyQuote();
   }, []);
 
   const fetchDailyQuote = async () => {
     setLoading(true);
-    const res = await fetch("/api/quote", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic: input, mood }),
-    });
-    const data = await res.json();
-    setQuote(data.quote);
-    localStorage.setItem("daily_quote", data.quote);
-    localStorage.setItem("daily_quote_time", new Date().getTime().toString());
-    setLoading(false);
-  };
+
+    const topicToSend = input?.trim() || "motivation";
+    const moodToSend = mood?.trim() || "Motivational";
+
+      const res = await fetch("/api/quote", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic: topicToSend, mood: moodToSend }),
+      });
+      const data = await res.json();
+
+      const finalQuote = data?.quote?.trim() || "Keep going. You are unstoppable! 🚀";
+  setQuote(finalQuote);
+
+  localStorage.setItem("daily_quote", finalQuote);
+  localStorage.setItem("daily_quote_time", Date.now().toString());
+
+  setLoading(false);
+};
 
   const getQuote = async () => {
     if (!input && !mood) return;
@@ -52,10 +61,10 @@ export default function Home() {
     const res = await fetch("/api/quote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic: input, mood }),
+      body: JSON.stringify({ topic: input || "motivation", mood: mood || "Motivational" }),
     });
     const data = await res.json();
-    setQuote(data.quote);
+    setQuote(data?.quote?.trim() || "Stay positive and keep pushing forward! 💪");
     setLoading(false);
   };
 
@@ -113,12 +122,6 @@ export default function Home() {
         </Button>
       </motion.div>
 
-      {!loading && !quote && (
-        <p className="text-center text-muted-foreground mb-2">
-          Enter a topic or mood and get inspired! ✨
-        </p>
-      )}
-
       {quote && !loading && (
         <>
           <p className="text-center text-muted-foreground text-sm">Today’s Quote</p>
@@ -152,6 +155,12 @@ export default function Home() {
 
       {loading && (
         <Card className="animate-pulse bg-gradient-to-r from-gray-700 via-gray-900 to-black h-24 rounded-xl" />
+      )}
+
+      {!loading && !quote && (
+        <p className="text-center text-muted-foreground mb-2">
+          Enter a topic or mood and get inspired! ✨
+        </p>
       )}
     </main>
   );
