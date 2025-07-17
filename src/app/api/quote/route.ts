@@ -6,40 +6,40 @@ export async function POST(request: Request) {
   const finalTopic = topic?.trim() || "motivation";
   const finalMood = mood?.trim() || "motivational";
 
-  const prompt = `Give me a short original quote about "${finalTopic}" in a ${finalMood} tone. Keep it under 25 words. Avoid clichés.`;
+  const prompt = `Give me a short, fresh, original quote about "${finalTopic}" in a ${finalMood} tone. Keep it under 25 words. Avoid clichés.`;
 
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.9,
-      }),
-    });
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" +
+        process.env.NEXT_PUBLIC_GEMINI_API_KEY,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+        }),
+      }
+    );
 
     const data = await response.json();
+    console.log("Gemini Response:", JSON.stringify(data, null, 2));
 
-    console.log("OpenAI Response:", JSON.stringify(data, null, 2));
-
-    const quote = data?.choices?.[0]?.message?.content?.trim();
+    const quote = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
 
     if (!quote || typeof quote !== "string") {
-      console.error("OpenAI returned invalid response, sending fallback quote.", data);
+      console.error("Gemini invalid response, fallback triggered.");
       return NextResponse.json({
-        quote: "Your future is created by what you do today, not tomorrow. 🚀",
+        quote: "Believe in yourself, always. 🚀",
       });
     }
 
     return NextResponse.json({ quote });
-  } catch (error) {
-    console.error("API fetch error:", error);
+  } catch (err) {
+    console.error("Gemini API error:", err);
     return NextResponse.json({
-      quote: "Stay positive. You are capable of amazing things! 🌟",
+      quote: "Keep moving forward. You are unstoppable! 🌟",
     });
   }
 }
