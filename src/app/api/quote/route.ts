@@ -13,7 +13,7 @@ export async function POST(request: Request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env. }`,
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
         model: "gpt-4o",
@@ -24,21 +24,22 @@ export async function POST(request: Request) {
 
     const data = await response.json();
 
-    // 🟢 Validate OpenAI response
+    console.log("OpenAI Response:", JSON.stringify(data, null, 2));
+
     const quote = data?.choices?.[0]?.message?.content?.trim();
 
     if (!quote || typeof quote !== "string") {
-      console.error("OpenAI returned invalid quote, fallback triggered.", data);
+      console.error("OpenAI returned invalid response, sending fallback quote.", data);
       return NextResponse.json({
-        quote: "You are your only limit. Rise above! 🚀",
+        quote: "Your future is created by what you do today, not tomorrow. 🚀",
       });
     }
 
     return NextResponse.json({ quote });
   } catch (error) {
-    console.error("Fetch failed:", error);
+    console.error("API fetch error:", error);
     return NextResponse.json({
-      quote: "Your potential is endless. Keep pushing forward! 💫",
+      quote: "Stay positive. You are capable of amazing things! 🌟",
     });
   }
 }
