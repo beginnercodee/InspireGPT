@@ -1,19 +1,50 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Copy } from "lucide-react";
-import { motion } from "framer-motion";
+import { Copy, Volume2 } from "lucide-react";
 import { toast } from "sonner";
-import { Volume2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [input, setInput] = useState("");
   const [mood, setMood] = useState("");
   const [quote, setQuote] = useState("");
   const [loading, setLoading] = useState(false);
+
+  // ✅ Daily Motivation Mode Effect
+  useEffect(() => {
+    const saved = localStorage.getItem("daily_quote");
+    const savedTime = localStorage.getItem("daily_quote_time");
+
+    if (saved && savedTime) {
+      const now = new Date().getTime();
+      const then = parseInt(savedTime, 10);
+      const hoursPassed = (now - then) / (1000 * 60 * 60);
+
+      if (hoursPassed < 24) {
+        setQuote(saved);
+        return;
+      }
+    }
+    fetchDailyQuote();
+  }, []);
+
+  const fetchDailyQuote = async () => {
+    setLoading(true);
+    const res = await fetch("/api/quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic: input, mood }),
+    });
+    const data = await res.json();
+    setQuote(data.quote);
+    localStorage.setItem("daily_quote", data.quote);
+    localStorage.setItem("daily_quote_time", new Date().getTime().toString());
+    setLoading(false);
+  };
 
   const getQuote = async () => {
     if (!input && !mood) return;
@@ -28,9 +59,16 @@ export default function Home() {
     setLoading(false);
   };
 
-  const copyQuote = () => {
+  const handleCopy = () => {
     navigator.clipboard.writeText(quote);
     toast.success("Quote copied to clipboard! 🚀");
+  };
+
+  const handleListen = () => {
+    const utterance = new SpeechSynthesisUtterance(quote);
+    utterance.lang = "en-US";
+    speechSynthesis.speak(utterance);
+    toast("Reading quote aloud 🎧");
   };
 
   const handleMoodClick = (m: string) => {
@@ -53,7 +91,6 @@ export default function Home() {
       />
 
       <p className="text-muted-foreground text-sm mb-1">Choose a mood:</p>
-
       <div className="flex flex-wrap gap-2 mb-2">
         {["Motivational", "Calm", "Funny", "Sad"].map((m) => (
           <Button
@@ -82,52 +119,39 @@ export default function Home() {
         </p>
       )}
 
-      {(loading || quote) && (
+      {quote && !loading && (
         <>
-          <p className="text-center text-muted-foreground mb-1">Your Quote:</p>
+          <p className="text-center text-muted-foreground text-sm">Today’s Quote</p>
+          <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-base sm:text-lg">
+            <CardContent className="p-4 text-center font-semibold">
+              {quote}
+            </CardContent>
+          </Card>
 
-          {loading ? (
-            <Card className="animate-pulse bg-gradient-to-r from-gray-700 via-gray-900 to-black h-24 rounded-xl" />
-          ) : (
-            <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-base sm:text-lg">
-              <CardContent className="p-4 text-center font-semibold">{quote}</CardContent>
-            </Card>
-          )}
+          <motion.div whileHover={{ scale: 1.05 }}>
+            <Button
+              onClick={handleCopy}
+              className="w-full flex gap-2 justify-center mb-2"
+              variant="outline"
+            >
+              <Copy size={18} /> Copy Quote
+            </Button>
+          </motion.div>
+
+          <motion.div whileHover={{ scale: 1.05 }}>
+            <Button
+              onClick={handleListen}
+              className="w-full flex gap-2 justify-center"
+              variant="outline"
+            >
+              <Volume2 size={18} /> Listen Quote
+            </Button>
+          </motion.div>
         </>
       )}
 
-      {quote && !loading && (
-  <>
-    <motion.div whileHover={{ scale: 1.05 }}>
-      <Button
-        onClick={() => {
-          navigator.clipboard.writeText(quote);
-          toast.success("Quote copied to clipboard! 🚀");
-        }}
-        className="w-full flex gap-2 justify-center mb-2"
-        variant="outline"
-      >
-        <Copy size={18} /> Copy Quote
-      </Button>
-    </motion.div>
-
-    <motion.div whileHover={{ scale: 1.05 }}>
-      <Button
-        onClick={() => {
-          if (quote) {
-            const utterance = new SpeechSynthesisUtterance(quote);
-            utterance.lang = "en-US";
-            speechSynthesis.speak(utterance);
-            toast("Reading quote aloud 🎧");
-          }
-        }}
-        className="w-full flex gap-2 justify-center"
-        variant="outline"
-      >
-        <Volume2 size={18} /> Listen Quote
-      </Button>
-    </motion.div>
-  </>
+      {loading && (
+        <Card className="animate-pulse bg-gradient-to-r from-gray-700 via-gray-900 to-black h-24 rounded-xl" />
       )}
     </main>
   );
