@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Copy, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import QuoteCard from "@/components/QuoteCard";
 
 export default function Home() {
   const [input, setInput] = useState("");
@@ -123,45 +124,32 @@ export default function Home() {
       </motion.div>
 
       {quote && !loading && (
-        <>
-          <p className="text-center text-muted-foreground text-sm">Today’s Quote</p>
-          <Card className="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-base sm:text-lg">
-            <CardContent className="p-4 text-center font-semibold">
-              {quote}
-            </CardContent>
-          </Card>
+  <>
+    <p className="text-center text-muted-foreground text-sm mb-2">Today’s Quote</p>
+    <QuoteCard quote={quote} />
 
-          <motion.div whileHover={{ scale: 1.05 }}>
-            <Button
-              onClick={handleCopy}
-              className="w-full flex gap-2 justify-center mb-2"
-              variant="outline"
-            >
-              <Copy size={18} /> Copy Quote
-            </Button>
-          </motion.div>
+    <motion.div whileHover={{ scale: 1.05 }}>
+      <Button
+        onClick={handleCopy}
+        className="w-full flex gap-2 justify-center mb-2"
+        variant="outline"
+      >
+        <Copy size={18} /> Copy Quote
+      </Button>
+    </motion.div>
 
-          <motion.div whileHover={{ scale: 1.05 }}>
-            <Button
-              onClick={handleListen}
-              className="w-full flex gap-2 justify-center"
-              variant="outline"
-            >
-              <Volume2 size={18} /> Listen Quote
-            </Button>
-          </motion.div>
-        </>
-      )}
+    <motion.div whileHover={{ scale: 1.05 }}>
+      <Button
+        onClick={handleListen}
+        className="w-full flex gap-2 justify-center"
+        variant="outline"
+      >
+        <Volume2 size={18} /> Listen Quote
+      </Button>
+    </motion.div>
+  </>
+)}
 
-      {loading && (
-        <Card className="animate-pulse bg-gradient-to-r from-gray-700 via-gray-900 to-black h-24 rounded-xl" />
-      )}
-
-      {!loading && !quote && (
-        <p className="text-center text-muted-foreground mb-2">
-          Enter a topic or mood and get inspired! ✨
-        </p>
-      )}
     </main>
   );
 }
