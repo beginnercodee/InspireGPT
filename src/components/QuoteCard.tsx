@@ -27,9 +27,12 @@ export default function QuoteCard({ quote }: { quote: string }) {
 
   return (
     <>
-      <div ref={cardRef} className="bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl p-6 text-center font-semibold text-xl shadow-xl">
-        {quote}
-      </div>
+      <Card ref={cardRef} className="card text-white">
+  <CardContent className="p-6 text-center font-semibold text-xl">
+    {quote}
+  </CardContent>
+</Card>
+
       <Button onClick={downloadImage} className="w-full mt-4 flex gap-2 justify-center" variant="outline">
         <Download size={18} /> Download Quote Image
       </Button>
