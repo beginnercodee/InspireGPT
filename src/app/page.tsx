@@ -87,7 +87,8 @@ export default function Home() {
   };
 
   return (
-    <main className="max-w-lg mx-auto mt-10 p-4 space-y-4">
+    <main className="relative z-10 max-w-lg mx-auto min-h-screen flex flex-col justify-center p-4 space-y-4">
+
       <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
 
       <Input
