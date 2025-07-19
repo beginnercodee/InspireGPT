@@ -11,6 +11,8 @@ import { useTheme } from "next-themes";
 import QuoteCard from "@/components/QuoteCard";
 
 export default function Home() {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
+
   const gradients = [
     "from-purple-500 to-pink-500",
     "from-blue-500 to-cyan-500",
@@ -113,7 +115,7 @@ export default function Home() {
         await navigator.share({
           title: "InspireGPT Quote",
           text: quote,
-          url: window.location.href,
+          url: siteUrl,
         });
         toast.success("Quote shared successfully! 🚀");
       } catch (error) {
@@ -182,7 +184,6 @@ export default function Home() {
             </p>
             <QuoteCard quote={quote} gradient={gradient} />
 
-
             <Button
               onClick={handleCopy}
               className="w-full flex gap-2 justify-center mb-2 transition-transform hover:scale-[1.05]"
@@ -198,6 +199,39 @@ export default function Home() {
             >
               <Volume2 size={18} /> Listen Quote
             </Button>
+
+            {siteUrl && (
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  className="w-full flex gap-2 justify-center transition-transform hover:scale-[1.05]"
+                  onClick={() =>
+                    window.open(
+                      `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+                        `"${quote}"\n\nvia InspireGPT 🚀 ${process.env.NEXT_PUBLIC_SITE_URL}`
+                      )}`,
+                      "_blank"
+                    )
+                  }
+                >
+                  Share on X
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full flex gap-2 justify-center transition-transform hover:scale-[1.05]"
+                  onClick={() =>
+                    window.open(
+                      `https://wa.me/?text=${encodeURIComponent(
+                        `"${quote}"\n\nvia InspireGPT 🚀 ${siteUrl}`
+                      )}`,
+                      "_blank"
+                    )
+                  }
+                >
+                  WhatsApp
+                </Button>
+              </div>
+            )}
 
             <Button
               onClick={handleShare}
