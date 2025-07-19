@@ -170,12 +170,16 @@ export default function Home() {
         </Button>
 
         {loading && (
-          <Card className="animate-pulse bg-muted rounded-xl min-h-32 flex items-center justify-center shadow-md">
-            <CardContent className="p-6 text-center font-semibold text-xl text-muted-foreground">
-              Generating your quote...
-            </CardContent>
-          </Card>
-        )}
+  <Card className="animate-pulse bg-muted rounded-xl min-h-32 flex items-center justify-center shadow-md">
+    <CardContent className="p-6 text-center font-semibold text-xl text-muted-foreground">
+      Generating
+      <span className="inline-block w-4 text-center animate-bounce">.</span>
+      <span className="inline-block w-4 text-center animate-bounce delay-200">.</span>
+      <span className="inline-block w-4 text-center animate-bounce delay-400">.</span>
+    </CardContent>
+  </Card>
+)}
+
 
         {!loading && quote && (
           <>
