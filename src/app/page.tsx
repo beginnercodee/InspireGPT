@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Copy, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
 import QuoteCard from "@/components/QuoteCard";
 
 export default function Home() {
@@ -23,7 +24,7 @@ useEffect(() => {
   setGradient(gradients[Math.floor(Math.random() * gradients.length)]);
 }, []);
 
-
+  const { setTheme, theme } = useTheme();
   const [input, setInput] = useState("");
   const [mood, setMood] = useState("");
   const [quote, setQuote] = useState("");
@@ -107,11 +108,16 @@ useEffect(() => {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-orange-400 to-purple-500 flex justify-center items-center p-4">
+    <div className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4`}>
+
     <main className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-xl shadow-lg">
 
 
       <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
+
+      <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+  Toggle Theme
+</Button>
 
       <Input
         value={input}
