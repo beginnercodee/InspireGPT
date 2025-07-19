@@ -10,6 +10,20 @@ import { motion } from "framer-motion";
 import QuoteCard from "@/components/QuoteCard";
 
 export default function Home() {
+  const gradients = [
+  "from-purple-500 to-pink-500",
+  "from-blue-500 to-cyan-500",
+  "from-green-400 to-emerald-500",
+  "from-yellow-400 to-orange-500",
+  "from-indigo-500 to-purple-500"
+];
+const [gradient, setGradient] = useState(gradients[0]);
+
+useEffect(() => {
+  setGradient(gradients[Math.floor(Math.random() * gradients.length)]);
+}, []);
+
+
   const [input, setInput] = useState("");
   const [mood, setMood] = useState("");
   const [quote, setQuote] = useState("");
@@ -93,7 +107,10 @@ export default function Home() {
   };
 
   return (
-    <main className="relative z-10 max-w-lg mx-auto min-h-screen flex flex-col justify-center p-4 space-y-4">
+    <div className="min-h-screen w-full bg-gradient-to-br from-orange-400 to-purple-500 flex justify-center items-center p-4">
+    <main className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-xl shadow-lg">
+
+
       <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
 
       <Input
@@ -162,5 +179,6 @@ export default function Home() {
         </>
       )}
     </main>
+    </div>
   );
 }
