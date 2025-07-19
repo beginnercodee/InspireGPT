@@ -139,7 +139,8 @@ useEffect(() => {
       <Button
         onClick={getQuote}
         disabled={loading}
-        className="w-full mb-4 transition-transform hover:scale-[1.02]"
+        className="w-full flex gap-2 justify-center mb-2 transition-transform hover:scale-[1.05]"
+
       >
         {loading ? "Generating..." : "Get Quote"}
       </Button>
@@ -158,24 +159,24 @@ useEffect(() => {
             Today’s Quote
           </p>
           <QuoteCard quote={quote} />
-          <motion.div whileHover={{ scale: 1.05 }}>
+          
             <Button
               onClick={handleCopy}
-              className="w-full flex gap-2 justify-center mb-2"
+              className="w-full flex gap-2 justify-center mb-2 transition-transform hover:scale-[1.05]"
+
               variant="outline"
             >
               <Copy size={18} /> Copy Quote
             </Button>
-          </motion.div>
-          <motion.div whileHover={{ scale: 1.05 }}>
+          
             <Button
               onClick={handleListen}
-              className="w-full flex gap-2 justify-center"
+              className="w-full flex gap-2 justify-center mb-2 transition-transform hover:scale-[1.05]"
+
               variant="outline"
             >
               <Volume2 size={18} /> Listen Quote
             </Button>
-          </motion.div>
         </>
       )}
     </main>
