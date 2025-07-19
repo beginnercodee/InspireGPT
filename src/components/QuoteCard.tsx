@@ -6,6 +6,8 @@ import { toPng } from "html-to-image";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { toast } from "sonner";
+import { motion } from "framer-motion";
+
 
 export default function QuoteCard({ quote }: { quote: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -27,11 +29,18 @@ export default function QuoteCard({ quote }: { quote: string }) {
 
   return (
     <>
-      <Card ref={cardRef} className="card text-white">
-  <CardContent className="p-6 text-center font-semibold text-xl">
-    {quote}
-  </CardContent>
-</Card>
+      <motion.div
+  ref={cardRef}
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+>
+  <Card className="card text-white">
+    <CardContent className="p-6 text-center font-semibold text-xl">
+      {quote}
+    </CardContent>
+  </Card>
+</motion.div>
 
       <Button onClick={downloadImage} className="w-full mt-4 flex gap-2 justify-center" variant="outline">
         <Download size={18} /> Download Quote Image
