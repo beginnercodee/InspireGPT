@@ -16,10 +16,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "InspireGPT — Daily Motivational Quotes",
-  description: "Get a fresh AI-powered quote every day to stay motivated! Choose your mood, listen, copy, or download your favorite quotes instantly.",
+  description:
+    "Get a fresh AI-powered quote every day to stay motivated! Choose your mood, listen, copy, or download your favorite quotes instantly.",
   openGraph: {
     title: "InspireGPT — Daily Motivational Quotes",
-    description: "Get a fresh AI-powered quote every day to stay motivated! Choose your mood, listen, copy, or download your favorite quotes instantly.",
+    description:
+      "Get a fresh AI-powered quote every day to stay motivated! Choose your mood, listen, copy, or download your favorite quotes instantly.",
     url: process.env.NEXT_PUBLIC_SITE_URL,
     siteName: "InspireGPT",
     images: [
@@ -41,7 +43,6 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -49,14 +50,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider>
-  <Toaster richColors position="top-center" />
-  {children}
-</ThemeProvider>
-
+          <Toaster richColors position="top-center" />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
