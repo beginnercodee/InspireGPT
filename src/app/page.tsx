@@ -107,6 +107,25 @@ useEffect(() => {
     setQuote("");
   };
 
+  const handleShare = async () => {
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "InspireGPT Quote",
+        text: quote,
+        url: window.location.href,
+      });
+      toast.success("Quote shared successfully! 🚀");
+    } catch (error) {
+      toast.error("Sharing failed 😞");
+    }
+  } else {
+    navigator.clipboard.writeText(quote);
+    toast("Copied to clipboard (Share not supported)");
+  }
+};
+
+
   return (
     <div className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4`}>
 
@@ -184,6 +203,15 @@ useEffect(() => {
             >
               <Volume2 size={18} /> Listen Quote
             </Button>
+
+            <Button
+  onClick={handleShare}
+  className="w-full flex gap-2 justify-center mb-2 transition-transform hover:scale-[1.05]"
+  variant="outline"
+>
+  📤 Share Quote
+</Button>
+
         </>
       )}
     </main>
