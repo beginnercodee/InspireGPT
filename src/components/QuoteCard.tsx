@@ -8,7 +8,7 @@ import { Download } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
-export default function QuoteCard({ quote }: { quote: string }) {
+export default function QuoteCard({ quote, gradient }: { quote: string, gradient: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const downloadImage = async () => {
@@ -35,7 +35,7 @@ export default function QuoteCard({ quote }: { quote: string }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Card className="bg-gradient-to-r from-orange-400 to-pink-500 text-white shadow-xl rounded-xl">
+        <Card className={`text-white bg-gradient-to-r ${gradient} rounded-xl p-6 text-center font-semibold text-xl shadow-xl`}>
 
           <CardContent className="p-6 text-center font-semibold text-xl">
             {quote}
