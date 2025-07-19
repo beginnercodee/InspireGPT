@@ -101,7 +101,9 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4`}>
-      <main className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-xl shadow-lg">
+      <main className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4
+  bg-white/30 dark:bg-black/30 border border-white/20 dark:border-black/20 backdrop-blur-xl rounded-xl shadow-2xl">
+
 
         <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
 
