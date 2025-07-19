@@ -146,12 +146,13 @@ useEffect(() => {
       </Button>
 
       {loading && (
-        <Card className="animate-pulse bg-muted/50 rounded-xl h-32 flex items-center justify-center">
-          <CardContent className="p-6 text-center font-semibold text-xl text-muted-foreground">
-            Generating quote...
-          </CardContent>
-        </Card>
-      )}
+  <Card className="animate-pulse bg-muted rounded-xl min-h-32 flex items-center justify-center shadow-md">
+    <CardContent className="p-6 text-center font-semibold text-xl text-muted-foreground">
+      Generating your quote...
+    </CardContent>
+  </Card>
+)}
+
 
       {!loading && quote && (
         <>
