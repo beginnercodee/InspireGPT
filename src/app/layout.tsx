@@ -15,21 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "InspireGPT — Daily Motivational Quotes",
-  description:
-    "Get a fresh AI-powered quote every day to stay motivated! Choose your mood, listen, copy, or download your favorite quotes instantly.",
+  title: "InspireGPT - Daily AI Quotes 🚀",
+  description: "Get daily inspirational quotes powered by AI ✨. Share, download, and get motivated instantly!",
   openGraph: {
-    title: "InspireGPT — Daily Motivational Quotes",
-    description:
-      "Get a fresh AI-powered quote every day to stay motivated! Choose your mood, listen, copy, or download your favorite quotes instantly.",
-    url: process.env.NEXT_PUBLIC_SITE_URL,
+    title: "InspireGPT - Daily AI Quotes 🚀",
+    description: "Get daily inspirational quotes powered by AI ✨. Share, download, and get motivated instantly!",
+    url: "https://inspire-gpt.vercel.app",
     siteName: "InspireGPT",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL}/og.png`,
+        url: "/og.png",
         width: 1200,
         height: 630,
-        alt: "InspireGPT Quote Preview",
+        alt: "InspireGPT Open Graph Banner",
       },
     ],
     locale: "en_US",
@@ -37,11 +35,12 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "InspireGPT — Daily Motivational Quotes",
-    description: "Get a daily dose of AI-powered motivation instantly.",
-    images: [`${process.env.NEXT_PUBLIC_SITE_URL}/og.png`],
+    title: "InspireGPT - Daily AI Quotes 🚀",
+    description: "Get daily inspirational quotes powered by AI ✨.",
+    images: ["/og.png"],
   },
 };
+
 
 export default function RootLayout({
   children,
