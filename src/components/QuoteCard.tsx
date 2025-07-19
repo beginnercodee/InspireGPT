@@ -8,8 +8,16 @@ import { Download } from "lucide-react";
 import { toast } from "sonner";
 import { motion } from "framer-motion";
 
-export default function QuoteCard({ quote, gradient }: { quote: string, gradient: string }) {
+export default function QuoteCard({ quote, gradient, loading }: { quote: string, gradient: string, loading?: boolean }) {
   const cardRef = useRef<HTMLDivElement>(null);
+
+  if (loading) {
+    return (
+      <div className="bg-muted rounded-xl h-32 animate-pulse flex items-center justify-center text-muted-foreground font-semibold text-xl">
+        Loading quote...
+      </div>
+    );
+  }
 
   const downloadImage = async () => {
     if (cardRef.current === null) return;
@@ -29,19 +37,17 @@ export default function QuoteCard({ quote, gradient }: { quote: string, gradient
   return (
     <>
       <motion.div
-        key={quote}
-        ref={cardRef}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <Card className={`text-white bg-gradient-to-r ${gradient} rounded-xl p-6 text-center font-semibold text-xl shadow-xl`}>
-
-          <CardContent className="p-6 text-center font-semibold text-xl">
-            {quote}
-          </CardContent>
-        </Card>
-      </motion.div>
+      ref={cardRef}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Card className={`bg-gradient-to-br ${gradient} text-white rounded-xl p-6 text-center font-semibold text-xl shadow-xl`}>
+        <CardContent>
+          {quote}
+        </CardContent>
+      </Card>
+    </motion.div>
 
       <Button
         onClick={downloadImage}
