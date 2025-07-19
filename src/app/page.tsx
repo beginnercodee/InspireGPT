@@ -40,21 +40,22 @@ export default function Home() {
     const topicToSend = input?.trim() || "motivation";
     const moodToSend = mood?.trim() || "Motivational";
 
-      const res = await fetch("/api/quote", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ topic: topicToSend, mood: moodToSend }),
-      });
-      const data = await res.json();
+    const res = await fetch("/api/quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topic: topicToSend, mood: moodToSend }),
+    });
+    const data = await res.json();
 
-      const finalQuote = data?.quote?.trim() || "Keep going. You are unstoppable! 🚀";
-  setQuote(finalQuote);
+    const finalQuote =
+      data?.quote?.trim() || "Keep going. You are unstoppable! 🚀";
+    setQuote(finalQuote);
 
-  localStorage.setItem("daily_quote", finalQuote);
-  localStorage.setItem("daily_quote_time", Date.now().toString());
+    localStorage.setItem("daily_quote", finalQuote);
+    localStorage.setItem("daily_quote_time", Date.now().toString());
 
-  setLoading(false);
-};
+    setLoading(false);
+  };
 
   const getQuote = async () => {
     if (!input && !mood) return;
@@ -62,10 +63,15 @@ export default function Home() {
     const res = await fetch("/api/quote", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topic: input || "motivation", mood: mood || "Motivational" }),
+      body: JSON.stringify({
+        topic: input || "motivation",
+        mood: mood || "Motivational",
+      }),
     });
     const data = await res.json();
-    setQuote(data?.quote?.trim() || "Stay positive and keep pushing forward! 💪");
+    setQuote(
+      data?.quote?.trim() || "Stay positive and keep pushing forward! 💪"
+    );
     setLoading(false);
   };
 
@@ -88,7 +94,6 @@ export default function Home() {
 
   return (
     <main className="relative z-10 max-w-lg mx-auto min-h-screen flex flex-col justify-center p-4 space-y-4">
-
       <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
 
       <Input
@@ -114,43 +119,48 @@ export default function Home() {
         ))}
       </div>
 
-      <motion.div whileHover={{ scale: 1.02 }}>
-        <Button
-          onClick={getQuote}
-          disabled={loading}
-          className="w-full mb-4"
-        >
-          {loading ? "Generating..." : "Get Quote"}
-        </Button>
-      </motion.div>
-
-      {quote && !loading && (
-  <>
-    <p className="text-center text-muted-foreground text-sm mb-2">Today’s Quote</p>
-    <QuoteCard quote={quote} />
-
-    <motion.div whileHover={{ scale: 1.05 }}>
       <Button
-        onClick={handleCopy}
-        className="w-full flex gap-2 justify-center mb-2"
-        variant="outline"
+        onClick={getQuote}
+        disabled={loading}
+        className="w-full mb-4 transition-transform hover:scale-[1.02]"
       >
-        <Copy size={18} /> Copy Quote
+        {loading ? "Generating..." : "Get Quote"}
       </Button>
-    </motion.div>
 
-    <motion.div whileHover={{ scale: 1.05 }}>
-      <Button
-        onClick={handleListen}
-        className="w-full flex gap-2 justify-center"
-        variant="outline"
-      >
-        <Volume2 size={18} /> Listen Quote
-      </Button>
-    </motion.div>
-  </>
-)}
+      {loading && (
+        <Card className="animate-pulse bg-muted/50 rounded-xl h-32 flex items-center justify-center">
+          <CardContent className="p-6 text-center font-semibold text-xl text-muted-foreground">
+            Generating quote...
+          </CardContent>
+        </Card>
+      )}
 
+      {!loading && quote && (
+        <>
+          <p className="text-center text-muted-foreground text-sm mb-2">
+            Today’s Quote
+          </p>
+          <QuoteCard quote={quote} />
+          <motion.div whileHover={{ scale: 1.05 }}>
+            <Button
+              onClick={handleCopy}
+              className="w-full flex gap-2 justify-center mb-2"
+              variant="outline"
+            >
+              <Copy size={18} /> Copy Quote
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }}>
+            <Button
+              onClick={handleListen}
+              className="w-full flex gap-2 justify-center"
+              variant="outline"
+            >
+              <Volume2 size={18} /> Listen Quote
+            </Button>
+          </motion.div>
+        </>
+      )}
     </main>
   );
 }
