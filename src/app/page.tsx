@@ -12,12 +12,13 @@ export default function Home() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
 
   const gradients = [
-    "from-purple-500 to-pink-500",
-    "from-blue-500 to-cyan-500",
-    "from-green-400 to-emerald-500",
-    "from-yellow-400 to-orange-500",
-    "from-indigo-500 to-purple-500",
-  ];
+  "from-[#667eea] to-[#764ba2]", // Soft purple-blue
+  "from-[#ff9966] to-[#ff5e62]", // Warm orange-red
+  "from-[#56ccf2] to-[#2f80ed]", // Fresh blue
+  "from-[#43e97b] to-[#38f9d7]", // Aqua green
+  "from-[#f7971e] to-[#ffd200]", // Golden sunrise
+];
+
   const [gradient, setGradient] = useState(gradients[0]);
   const { setTheme, theme } = useTheme();
 
@@ -100,7 +101,10 @@ export default function Home() {
   };
 
   return (
-    <div className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4`}>
+    <div
+  className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4 transition-all duration-500 ease-in-out`}
+>
+
       <main className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4
   bg-white/30 dark:bg-black/30 border border-white/20 dark:border-black/20 backdrop-blur-xl rounded-xl shadow-2xl">
 
