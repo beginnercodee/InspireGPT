@@ -137,9 +137,16 @@ export default function Home() {
           ))}
         </div>
 
-        <Button onClick={getQuote} disabled={loading} className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95">
-          {loading ? "Generating..." : "Get Quote"}
-        </Button>
+        <motion.button
+  onClick={getQuote}
+  disabled={loading}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className="w-full flex gap-2 justify-center mb-2 px-4 py-2 font-semibold text-white bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg shadow-lg transition-colors duration-300 disabled:opacity-50"
+>
+  {loading ? "Generating..." : "Get Quote"}
+</motion.button>
+
 
         {(quote || loading) && (
           <>
