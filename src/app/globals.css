@@ -123,8 +123,8 @@
 
 body {
   background: linear-gradient(135deg, #6366f1, #ec4899);
-  background-size: 400% 400%;
-  animation: gradientShift 15s ease infinite;
+  background-size: 600% 600%;
+  animation: gradientShift 30s ease infinite;
   min-height: 100vh;
   margin: 0;
   padding: 0;
