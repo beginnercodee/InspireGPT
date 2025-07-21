@@ -37,18 +37,16 @@
     return (
       <>
         <motion.div
-    key={quote}
-    ref={cardRef}
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.5, ease: "easeOut" }}
-  >
+  key={quote}
+  ref={cardRef}
+  initial={{ opacity: 0, scale: 0.9 }}
+  animate={{ opacity: 1, scale: 1 }}
+  transition={{ duration: 0.5 }}
+>
 
-        <Card
-    className={`rounded-3xl p-6 text-center font-semibold text-xl shadow-xl 
-      bg-white/20 backdrop-blur-lg border border-white/30 transition-all duration-300
-      ${gradient} text-white`}
-  >
+
+        <Card className={`text-white bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-2xl p-6 text-center font-semibold text-xl`}>
+
     <CardContent className="p-6 text-center font-semibold text-xl">
       {quote}
     </CardContent>
