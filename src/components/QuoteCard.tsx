@@ -42,11 +42,16 @@ export default function QuoteCard({ quote, gradient, loading }: { quote: string,
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className={`bg-gradient-to-br ${gradient} text-white rounded-xl p-6 text-center font-semibold text-xl shadow-xl`}>
-        <CardContent>
-          {quote}
-        </CardContent>
-      </Card>
+      <Card
+  className={`rounded-3xl p-6 text-center font-semibold text-xl shadow-xl 
+    bg-white/20 backdrop-blur-lg border border-white/30 transition-all duration-300
+    ${gradient} text-white`}
+>
+  <CardContent className="p-6 text-center font-semibold text-xl">
+    {quote}
+  </CardContent>
+</Card>
+
     </motion.div>
 
       <Button
