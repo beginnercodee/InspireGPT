@@ -62,7 +62,10 @@ export default function QuoteCard({
 
       <Button
         onClick={downloadImage}
-        className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95"
+        className="w-full flex gap-2 justify-center mb-2
+    transition-all duration-300 hover:scale-105 active:scale-95
+    hover:ring-2 hover:ring-offset-2 hover:ring-white
+    hover:shadow-lg hover:text-white"
         variant="outline"
       >
         <Download size={18} /> Download Quote Image
