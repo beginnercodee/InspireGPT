@@ -124,9 +124,11 @@ export default function Home() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl"
         >
-          <h1 className="text-4xl font-bold text-center mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
-  InspireGPT 🎉
+          <h1 className="text-3xl font-bold text-center mb-6 flex items-center justify-center gap-2">
+  <span role="img" aria-label="brain" className="text-4xl">🧠</span>
+  InspireGPT
 </h1>
+
 
 
           <Button
@@ -221,6 +223,10 @@ export default function Home() {
             </>
           )}
         </motion.main>
+        <footer className="mt-4 text-center text-sm text-white/80">
+  Built with ❤️ by Jamal Nadeem • InspireGPT 🚀
+</footer>
+
       </div>
     </div>
   );
