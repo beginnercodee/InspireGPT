@@ -124,7 +124,10 @@ export default function Home() {
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl"
         >
-          <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
+          <h1 className="text-4xl font-bold text-center mb-6 leading-tight tracking-tight text-white drop-shadow-lg">
+  InspireGPT 🎉
+</h1>
+
 
           <Button
             className="w-full flex gap-2 justify-center mb-2
@@ -146,7 +149,7 @@ export default function Home() {
             className="mb-2 text-sm sm:text-base"
           />
 
-          <p className="text-muted-foreground text-sm mb-1">Choose a mood:</p>
+          <p className="text-sm text-muted-foreground mb-1 font-medium tracking-wide">Choose a mood:</p>
           <div className="flex flex-wrap gap-2 mb-2">
             {["Motivational", "Calm", "Funny", "Sad"].map((m) => (
               <Button

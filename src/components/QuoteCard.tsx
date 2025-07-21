@@ -54,7 +54,7 @@ export default function QuoteCard({
         <Card
           className={`text-white bg-white/10 backdrop-blur-lg border border-white/20 shadow-2xl rounded-2xl p-6 text-center font-semibold text-xl`}
         >
-          <CardContent className="p-6 text-center font-semibold text-xl">
+          <CardContent className="p-6 text-center font-semibold text-2xl leading-relaxed">
             {quote}
           </CardContent>
         </Card>
