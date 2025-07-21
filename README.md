@@ -1,43 +1,31 @@
 # InspireGPT 🎉
 
-**AI-Powered Quote Generator using Next.js & OpenAI GPT-4 API**
+A beautifully designed motivational quote generator powered by Next.js, OpenAI, TailwindCSS, and Shadcn UI.
 
 ## 🚀 Features
-- Topic-based quote generation (powered by GPT-4)
-- Mood Selector (Motivational, Calm, Funny, Sad)
-- Beautiful Shadcn UI with Tailwind CSS
-- Framer Motion animations
-- Light/Dark Theme toggle
-- Voice Mode (coming later!)
-- Ready for Vercel Deployment
+- 🌟 AI-generated quotes based on **topic** and **mood**
+- 🎨 Stunning animated gradient backgrounds
+- 🌓 Light/Dark theme toggle
+- 🖼️ Download quotes as images
+- 🔊 Listen quotes aloud with text-to-speech
+- 📤 Share quotes via X/Twitter, WhatsApp, or native Share API
+- 💾 Daily quote mode (remembers your quote for 24 hours)
+- ⚡ Fast, responsive UI with Framer Motion animations
 
 ## 🛠️ Tech Stack
-- **Next.js App Router**
-- **Tailwind CSS + Shadcn UI**
-- **Framer Motion**
-- **OpenAI GPT-4 API**
-- **Vercel Hosting**
+- **Next.js 14**
+- **TailwindCSS + Shadcn UI**
+- **Framer Motion** for smooth animations
+- **Sonner** for beautiful toast notifications
+- **html-to-image** for downloading quotes as images
+- **Vercel** for deployment
 
-## 📂 How to Use
-1. Clone Repository:
+## 🌍 Live Demo
+👉 [https://inspire-gpt.vercel.app](https://inspire-gpt.vercel.app)
+
+## 🖥️ Local Development
 ```bash
-git clone https://github.com/your-username/inspiregpt.git
-cd inspiregpt
-```
-2. Install Packages:
-```bash
+git clone https://github.com/yourusername/InspireGPT.git
+cd InspireGPT
 pnpm install
-```
-3. Setup Environment Variables:
-```bash
-NEXT_PUBLIC_OPENAI_API_KEY=your_openai_key
-```
-4. Run Development:
-```bash
 pnpm dev
-```
-
-## 🌍 Live Link
-[InspireGPT on Vercel](https://your-vercel-link.vercel.app)
-
----
