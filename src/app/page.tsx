@@ -7,6 +7,7 @@ import { Copy, Volume2 } from "lucide-react";
 import { toast } from "sonner";
 import { useTheme } from "next-themes";
 import QuoteCard from "@/components/QuoteCard";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
@@ -105,13 +106,19 @@ export default function Home() {
   className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4 transition-all duration-500 ease-in-out`}
 >
 
-      <main className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4
-  bg-white/30 dark:bg-black/30 border border-white/20 dark:border-black/20 backdrop-blur-xl rounded-xl shadow-2xl">
+<motion.main
+  initial={{ opacity: 0 }}
+  animate={{ opacity: 1 }}
+  transition={{ duration: 0.7, ease: "easeOut" }}
+  className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-xl shadow-lg"
+>
+
 
 
         <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
 
-        <Button onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>Toggle Theme</Button>
+        <Button className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95"
+ onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>Toggle Theme</Button>
 
         <Input
           value={input}
@@ -129,7 +136,7 @@ export default function Home() {
           ))}
         </div>
 
-        <Button onClick={getQuote} disabled={loading} className="w-full flex gap-2 justify-center mb-2 hover:scale-[1.05] transition-transform">
+        <Button onClick={getQuote} disabled={loading} className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95">
           {loading ? "Generating..." : "Get Quote"}
         </Button>
 
@@ -139,15 +146,15 @@ export default function Home() {
 
             {!loading && (
               <>
-                <Button onClick={handleCopy} variant="outline" className="w-full flex gap-2 justify-center hover:scale-[1.05] transition-transform">
+                <Button onClick={handleCopy} variant="outline" className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95">
                   <Copy size={18} /> Copy Quote
                 </Button>
 
-                <Button onClick={handleListen} variant="outline" className="w-full flex gap-2 justify-center hover:scale-[1.05] transition-transform">
+                <Button onClick={handleListen} variant="outline" className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95">
                   <Volume2 size={18} /> Listen Quote
                 </Button>
 
-                <Button onClick={handleShare} variant="outline" className="w-full flex gap-2 justify-center hover:scale-[1.05] transition-transform">
+                <Button onClick={handleShare} variant="outline" className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95">
                   📤 Share Quote
                 </Button>
               </>
@@ -155,7 +162,7 @@ export default function Home() {
           </>
         )}
 
-      </main>
+      </motion.main>
     </div>
   );
 }

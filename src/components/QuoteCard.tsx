@@ -37,11 +37,13 @@ export default function QuoteCard({ quote, gradient, loading }: { quote: string,
   return (
     <>
       <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
+  key={quote}
+  ref={cardRef}
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5, ease: "easeOut" }}
+>
+
       <Card
   className={`rounded-3xl p-6 text-center font-semibold text-xl shadow-xl 
     bg-white/20 backdrop-blur-lg border border-white/30 transition-all duration-300
@@ -56,7 +58,7 @@ export default function QuoteCard({ quote, gradient, loading }: { quote: string,
 
       <Button
         onClick={downloadImage}
-        className="w-full flex gap-2 justify-center mb-2 transition-transform hover:scale-[1.05]"
+        className="w-full flex gap-2 justify-center mb-2 transition-transform duration-300 hover:scale-105 active:scale-95"
         variant="outline"
       >
         <Download size={18} /> Download Quote Image
