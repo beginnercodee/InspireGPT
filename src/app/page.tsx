@@ -116,112 +116,109 @@ export default function Home() {
     <div
       className={`min-h-screen w-full bg-gradient-to-br ${gradient} flex justify-center items-center p-4 transition-all duration-500 ease-in-out`}
     >
-      <motion.main
-  initial={{ opacity: 0, scale: 0.95 }}
-  animate={{ opacity: 1, scale: 1 }}
-  whileHover={{ scale: 1.02, boxShadow: "0 20px 35px rgba(0,0,0,0.3)" }}
-  transition={{ duration: 0.5, ease: "easeOut" }}
-  className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl"
->
+      <div className="p-[3px] rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 hover:from-yellow-500 hover:via-pink-500 hover:to-purple-500 transition-all duration-700">
+        <motion.main
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          whileHover={{ scale: 1.02, boxShadow: "0 20px 35px rgba(0,0,0,0.3)" }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative z-10 max-w-lg w-full flex flex-col justify-center p-4 space-y-4 bg-white/10 backdrop-blur-md rounded-2xl shadow-2xl"
+        >
+          <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
 
-        <h1 className="text-3xl font-bold text-center mb-6">InspireGPT 🎉</h1>
-
-        <Button
-          className="w-full flex gap-2 justify-center mb-2
+          <Button
+            className="w-full flex gap-2 justify-center mb-2
     transition-all duration-300 hover:scale-105 active:scale-95
     hover:ring-2 hover:ring-offset-2 hover:ring-white
     hover:shadow-lg hover:text-white"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          Toggle Theme
-        </Button>
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+          >
+            Toggle Theme
+          </Button>
 
-        <Input
-          value={input}
-          onChange={(e) => {
-            setInput(e.target.value);
-            setQuote("");
-          }}
-          placeholder="Enter topic (e.g., success)"
-          className="mb-2 text-sm sm:text-base"
-        />
+          <Input
+            value={input}
+            onChange={(e) => {
+              setInput(e.target.value);
+              setQuote("");
+            }}
+            placeholder="Enter topic (e.g., success)"
+            className="mb-2 text-sm sm:text-base"
+          />
 
-        <p className="text-muted-foreground text-sm mb-1">Choose a mood:</p>
-        <div className="flex flex-wrap gap-2 mb-2">
-          {["Motivational", "Calm", "Funny", "Sad"].map((m) => (
+          <p className="text-muted-foreground text-sm mb-1">Choose a mood:</p>
+          <div className="flex flex-wrap gap-2 mb-2">
+            {["Motivational", "Calm", "Funny", "Sad"].map((m) => (
+              <Button
+                key={m}
+                variant={mood === m ? "default" : "outline"}
+                onClick={() => {
+                  setMood(m);
+                  setQuote("");
+                }}
+              >
+                {m}
+              </Button>
+            ))}
+          </div>
+
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
-              key={m}
-              variant={mood === m ? "default" : "outline"}
-              onClick={() => {
-                setMood(m);
-                setQuote("");
-              }}
-            >
-              {m}
-            </Button>
-          ))}
-        </div>
-
-        <motion.div
-  whileHover={{ scale: 1.05 }}
-  whileTap={{ scale: 0.95 }}
->
-  <Button
-    onClick={getQuote}
-    disabled={loading}
-    className="w-full flex gap-2 justify-center mb-2
+              onClick={getQuote}
+              disabled={loading}
+              className="w-full flex gap-2 justify-center mb-2
       transition-all duration-300
       hover:ring-2 hover:ring-offset-2 hover:ring-white
       hover:shadow-lg hover:text-white"
-  >
-    {loading ? "Generating..." : "Get Quote"}
-  </Button>
-</motion.div>
+            >
+              {loading ? "Generating..." : "Get Quote"}
+            </Button>
+          </motion.div>
 
+          {(quote || loading) && (
+            <>
+              <QuoteCard quote={quote} gradient={gradient} loading={loading} />
 
-        {(quote || loading) && (
-          <>
-            <QuoteCard quote={quote} gradient={gradient} loading={loading} />
-
-            {!loading && (
-              <>
-                <Button
-                  onClick={handleCopy}
-                  variant="outline"
-                  className="w-full flex gap-2 justify-center mb-2
+              {!loading && (
+                <>
+                  <Button
+                    onClick={handleCopy}
+                    variant="outline"
+                    className="w-full flex gap-2 justify-center mb-2
     transition-all duration-300 hover:scale-105 active:scale-95
     hover:ring-2 hover:ring-offset-2 hover:ring-white
     hover:shadow-lg hover:text-white"
-                >
-                  <Copy size={18} /> Copy Quote
-                </Button>
+                  >
+                    <Copy size={18} /> Copy Quote
+                  </Button>
 
-                <Button
-                  onClick={handleListen}
-                  variant="outline"
-                  className="w-full flex gap-2 justify-center mb-2
+                  <Button
+                    onClick={handleListen}
+                    variant="outline"
+                    className="w-full flex gap-2 justify-center mb-2
     transition-all duration-300 hover:scale-105 active:scale-95
     hover:ring-2 hover:ring-offset-2 hover:ring-white
     hover:shadow-lg hover:text-white"
-                >
-                  <Volume2 size={18} /> Listen Quote
-                </Button>
+                  >
+                    <Volume2 size={18} /> Listen Quote
+                  </Button>
 
-                <Button
-                  onClick={handleShare}
-                  variant="outline"
-                  className="w-full flex gap-2 justify-center mb-2
+                  <Button
+                    onClick={handleShare}
+                    variant="outline"
+                    className="w-full flex gap-2 justify-center mb-2
     transition-all duration-300 hover:scale-105 active:scale-95
     hover:ring-2 hover:ring-offset-2 hover:ring-white
     hover:shadow-lg hover:text-white"
-                >
-                  📤 Share Quote
-                </Button>
-              </>
-            )}
-          </>
-        )}
-      </motion.main>
+                  >
+                    📤 Share Quote
+                  </Button>
+                </>
+              )}
+            </>
+          )}
+        </motion.main>
+      </div>
     </div>
   );
 }
