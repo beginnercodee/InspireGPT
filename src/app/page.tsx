@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import { useTheme } from "next-themes";
 import QuoteCard from "@/components/QuoteCard";
 import { motion } from "framer-motion";
+import party from "party-js";
+
 
 export default function Home() {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "";
@@ -79,6 +81,10 @@ export default function Home() {
     setQuote(
       data?.quote?.trim() || "Stay positive and keep pushing forward! 💪"
     );
+    party.confetti(document.querySelector("h1")!, {
+  count: 40,
+});
+
     setLoading(false);
   };
 
